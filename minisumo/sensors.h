@@ -3,7 +3,6 @@
 
 unsigned char getDIPSwitchValues();
 void startAllSensors();
-SensorValues getLoopSensorsValues();
 unsigned char isRobotInEdge(int leftLineSensor, int rightLineSensor, int backLineSensor);
 
 struct SensorValues {
@@ -17,5 +16,5 @@ struct SensorValues {
 };
 
 extern SensorValues loopSensorsValues;
-
+SensorValues getLoopSensorsValues();
 #endif

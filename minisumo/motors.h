@@ -3,7 +3,8 @@
 
 void move(float angular, int maxPwm, bool reverse = false);
 void stop(int stopType);
-void spin(bool toRightDirection, int pwm)
+void spin(bool toRightDirection, int pwm);
 void forward();
+void startMotors();
 
 #endif

@@ -36,26 +36,26 @@ void move(float angular, int pwm, bool reverse){
   // Calcula a velocidade da roda direita subtraindo a componente angular da linear.
   float rightSpeed  = (linear - angular);
 
-  int leftPWM = constrain(map(abs(leftSpeed), 0, 1, 0, pwm), 0, maxPWM);
-  int rightPWM = constrain(map(abs(rightSpeed), 0, 1, 0, pwm), 0, maxPWM);
+  int leftPWM = constrain(map(abs(leftSpeed), 0, 1, 0, pwm), 0, MAX_PWM);
+  int rightPWM = constrain(map(abs(rightSpeed), 0, 1, 0, pwm), 0, MAX_PWM);
 
   // TODO: Verificar, com os testes, se o sentido de rotação está correto.
   // Configura a direção e a velocidade da roda esquerda.
   if (leftSpeed < 0) { // se roda da esquerda gira pra trás
-    analogWrite(leftWheelIN1, leftPWM);
-    digitalWrite(leftWheelIN2, LOW);
+    analogWrite(LEFT_WHEEL_IN_1, leftPWM);
+    digitalWrite(LEFT_WHEEL_IN_2, LOW);
   } else {
-    digitalWrite(leftWheelIN1, LOW);
-    analogWrite(leftWheelIN2, leftPWM);
+    digitalWrite(LEFT_WHEEL_IN_1, LOW);
+    analogWrite(LEFT_WHEEL_IN_2, leftPWM);
   }
 
   // Configura a direção e a velocidade da roda direita.
   if (rightSpeed < 0) { // se roda da direita gira pra trás
-    analogWrite(rightWheelIN1, rightPWM);
-    digitalWrite(rightWheelIN2, LOW);
+    analogWrite(RIGHT_WHEEL_IN_1, rightPWM);
+    digitalWrite(RIGHT_WHEEL_IN_2, LOW);
   } else {
-    digitalWrite(rightWheelIN1, LOW);
-    analogWrite(rightWheelIN2, rightPWM);
+    digitalWrite(RIGHT_WHEEL_IN_1, LOW);
+    analogWrite(RIGHT_WHEEL_IN_2, rightPWM);
   }
 }
 
@@ -64,32 +64,32 @@ void move(float angular, int pwm, bool reverse){
 void stop(int stopType){
   switch (stopType) {
     case 0: // Parar de acelerar as 2 rodas (Coast)
-      digitalWrite(rightWheelIN1, LOW);
-      digitalWrite(rightWheelIN2, LOW);
-      digitalWrite(leftWheelIN1, LOW);
-      digitalWrite(leftWheelIN2, LOW);
+      digitalWrite(RIGHT_WHEEL_IN_1, LOW);
+      digitalWrite(RIGHT_WHEEL_IN_2, LOW);
+      digitalWrite(LEFT_WHEEL_IN_1, LOW);
+      digitalWrite(LEFT_WHEEL_IN_2, LOW);
       break;
     case 1: // Freiar as 2 rodas (Brake)
-      digitalWrite(leftWheelIN1, HIGH);
-      digitalWrite(leftWheelIN2, HIGH);
-      digitalWrite(rightWheelIN3, HIGH);
-      digitalWrite(rightWheelIN4, HIGH);
+      digitalWrite(LEFT_WHEEL_IN_1, HIGH);
+      digitalWrite(LEFT_WHEEL_IN_2, HIGH);
+      digitalWrite(RIGHT_WHEEL_IN_1, HIGH);
+      digitalWrite(RIGHT_WHEEL_IN_2, HIGH);
       break;
     case 2: // Parar de acelerar somente roda direita (Coast)
-      digitalWrite(rightWheelIN1, LOW);
-      digitalWrite(rightWheelIN2, LOW);
+      digitalWrite(RIGHT_WHEEL_IN_1, LOW);
+      digitalWrite(RIGHT_WHEEL_IN_2, LOW);
       break;
     case 3: // Parar de acelerar somente roda esquerda (Coast)
-      digitalWrite(leftWheelIN1, LOW);
-      digitalWrite(leftWheelIN2, LOW);
+      digitalWrite(LEFT_WHEEL_IN_1, LOW);
+      digitalWrite(LEFT_WHEEL_IN_2, LOW);
       break;
     case 4: // Freiar somente a roda esquerda (Brake)
-      digitalWrite(leftWheelIN1, HIGH);
-      digitalWrite(leftWheelIN2, HIGH);
+      digitalWrite(LEFT_WHEEL_IN_1, HIGH);
+      digitalWrite(LEFT_WHEEL_IN_2, HIGH);
       break;
     case 5: // Freiar somente a roda direita (Brake)
-      digitalWrite(rightWheelIN3, HIGH);
-      digitalWrite(rightWheelIN4, HIGH);
+      digitalWrite(RIGHT_WHEEL_IN_1, HIGH);
+      digitalWrite(RIGHT_WHEEL_IN_2, HIGH);
       break;
   }
 }
@@ -98,15 +98,15 @@ void stop(int stopType){
 */
 void spin(bool toRightDirection, int pwm){
   if (toRightDirection) {
-    analogWrite(leftWheelIN1, pwm);
-    digitalWrite(leftWheelIN2, LOW);
-    digitalWrite(rightWheelIN1, LOW);
-    analogWrite(rightWheelIN2, pwm);
+    analogWrite(LEFT_WHEEL_IN_1, pwm);
+    digitalWrite(LEFT_WHEEL_IN_2, LOW);
+    digitalWrite(RIGHT_WHEEL_IN_1, LOW);
+    analogWrite(RIGHT_WHEEL_IN_2, pwm);
   } else {
-    digitalWrite(leftWheelIN1, LOW);
-    analogWrite(leftWheelIN2, pwm);
-    digitalWrite(rightWheelIN1, pwm);
-    analogWrite(rightWheelIN2, LOW);
+    digitalWrite(LEFT_WHEEL_IN_1, LOW);
+    analogWrite(LEFT_WHEEL_IN_2, pwm);
+    digitalWrite(RIGHT_WHEEL_IN_1, pwm);
+    analogWrite(RIGHT_WHEEL_IN_2, LOW);
   }
 };
 

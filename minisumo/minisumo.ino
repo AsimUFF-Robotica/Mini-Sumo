@@ -14,6 +14,7 @@ Componentes:
 #include "motors.h"
 #include "constants.h"
 #include "sensors.h"
+#include "strategies.h"
 
 unsigned char strategy;
 SensorValues loopSensorsValues;

@@ -2,6 +2,7 @@
 #include "motors.h"
 #include "constants.h"
 #include "sensors.h"
+#include "strategies.h"
 
 /* DEFENSIVE_FULL_STRATEGY
 Inicialmente da ré em maxima velocidade até a linha branca e para assim que avista-la.
@@ -80,7 +81,7 @@ void reverseAndSpinWhenInEdge(void (*strategyFunc)()) {
   bool isSpinDirectionRight = false;
 
   if (isSpinning) {
-    if (millis() - spinStartTime >= SPIN_180_DURATION_MS) {
+    if (millis() - spinStartTime >= SPIN_180_DURATION_MS_WITH_MAXPW) {
       isSpinning = false;
     }
     return;

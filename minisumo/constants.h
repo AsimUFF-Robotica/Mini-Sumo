@@ -10,10 +10,10 @@
 
 // DIP Switch
 // TODO: Encontrar pinos livres para o DIP Switch
-#define SWITCH_ONE 
-#define SWITCH_TWO 
-#define SWITCH_THREE 
-#define SWITCH_FOUR 
+#define SWITCH_ONE 100
+#define SWITCH_TWO 101
+#define SWITCH_THREE 102
+#define SWITCH_FOUR 103
 
 // QRE line sensor 
 #define QRE_WHITE_LINE_MENOR_THAN 600 // TODO: Revisar esse valor
