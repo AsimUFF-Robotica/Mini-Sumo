@@ -1,6 +1,4 @@
 /*
-Tipos de Estratégias para Robôs de Combate:
-
 Este código define diferentes estratégias de combate para nosso robô, categorizadas em dois grandes grupos: Defensivas e Ofensivas, e subdivididas em Full, Start, Search. Já para a defesa de borda (linha branca) temos as estratégias do tipo: Safety.
 
 - Estratégias Defensivas (Defensive): Passivas ou de evasão. 
