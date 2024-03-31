@@ -1,3 +1,22 @@
+/*
+Tipos de Estratégias para Robôs de Combate:
+
+Este código define diferentes estratégias de combate para nosso robô, categorizadas em dois grandes grupos: Defensivas e Ofensivas, e subdivididas em Full, Start, Search. Já para a defesa de borda (linha branca) temos as estratégias do tipo: Safety.
+
+- Estratégias Defensivas (Defensive): Passivas ou de evasão. 
+- Estratégias Ofensivas (Offensive): Visam a agressão direta ao adversário, buscando dominar a arena e aplicar danos.
+
+- Start: Estratégias iniciais (de abertura) que definem o primeiro movimento. Como por exemplo estabelecer uma posição vantajosa desde o início.
+- Search: Táticas de busca para localizar o oponente na arena, utilizando movimentos específicos para maximizar a chance de encontro e ataque.
+- Full: Representa uma estratégia completa, englobando elementos de 'Start' e 'Search' para uma abordagem integrada.
+
+- Safety: Projetadas para responder a situações de risco iminente, como a proximidade com a linha branca da arena, ativando manobras de segurança para evitar a desqualificação.
+
+Cada tipo de estratégia pode ser usado isoladamente ou em combinação com outros, dependendo das condições da luta e da estratégia do oponente. 
+Por exemplo, uma estratégia 'Start' pode iniciar o combate, seguida pela ativação de uma estratégia 'Search' para continuar a pressão sobre o adversário. Juntamente da 'Safe' para
+ser a resposta a situações de perigo imediato, como o reconhecimento da linha branca, garantindo a segurança do robô.
+*/
+
 #include <Arduino.h>
 #include "motors.h"
 #include "constants.h"
@@ -70,9 +89,8 @@ void randomSearch(){
   move(0, MAX_PWM);
 }
 
-/* SAFE_STRATEGY
-Segue reto na velocidade maxima até encontrar o inimigo ou a linha branca.
-Caso encontre a linha branca, gira 180 graus e segue reto novamente.
+/* SAFETY_STRATEGY
+Caso encontre a linha branca, da ré por um tempo, gira 180 graus e reinicia a estratégia.
 */
 void reverseAndSpinWhenInEdge(void (*strategyFunc)()) {
   static bool isSpinning = false;
@@ -117,6 +135,10 @@ void reverseAndSpinWhenInEdge(void (*strategyFunc)()) {
   }
 }
 
+/* É responsável por selecionar e executar uma estratégia de combate específica para o robô, baseando-se em uma chave seletora fornecida como argumento. 
+Esta chave determina qual das estratégias pré-definidas será ativada, permitindo ao robô adaptar seu comportamento de acordo com as condições e estratégias do oponente encontradas na arena. 
+As estratégias variam entre defensivas e ofensivas, incluindo manobras evasivas, ataques diretos e padrões de busca. 
+*/
 void runnigStrategy(unsigned char strategy){
 switch(strategy) {
   case 0b1:
