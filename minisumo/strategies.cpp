@@ -33,18 +33,50 @@ limitar as direções de onde o ataque pode vir.
 Ela também aumenta as chances de que o oponente cometa um erro e saia da arena por conta própria.
 */
 void whiteLineRetreat(){
-  // TODO
+// TODO
+/*  Pseudocódigo:
+
+*/
 
 }
 
 /* OFFENSIVE_SEARCH_STRATEGY
-Quando encontra o inimigo, freia o robo.
-Segue no movimento "woodpecker" onde o robo é acelerado por pouco tempo e depois parado, continuamente.
-Caso encontre a linha, gira 180 graus e continua buscando o inimigo.
+Busca o inimigo em velocidade maxima.
+Mas, assim que o encontra, freia o robo.
+Segue no movimento "woodpecker" onde o robo é acelerado por pouco tempo e depois parado, continuamente e super devagar.
 A vantagem é que com a baixa velocidade, a lâmina não se eleva com a alta velocidade.
 */
-void woodpecker(){
-  // TODO
+void fastWoodpecker(){
+// TODO
+/*  Pseudocódigo:
+    1) Ativa aceleração para frente em velocidade maxima. Use a função move()
+    2) Busca o inimigo olhando os 3 sensores de distancia:
+      sensor frontal: loopSensorsValues.jsFrontSensor
+      sensor lateral esquerdo: loopSensorsValues.leftVl53l0xSensorValue
+      sensor lateral direito: loopSensorsValues.rightVl53l0xSensorValue
+    3) assim que o encontra o oponente, freia o robo.
+    4) Segue em direção ao inimigo no movimento "woodpecker". Onde o robo é acelerado por pouco tempo e depois parado, continuamente e super devagar.
+
+*/
+
+}
+
+/* OFFENSIVE_SEARCH_STRATEGY
+Busca o inimigo enquanto segue no movimento "woodpecker" onde o robo é acelerado por pouco tempo e depois parado, continuamente e super devagar.
+A vantagem é que com a baixa velocidade, a lâmina não se eleva com a alta velocidade.
+*/
+void slowWoodpecker(){
+// TODO
+/*  Pseudocódigo:
+    1) Busca o inimigo olhando os 3 sensores de distancia:
+      sensor frontal: loopSensorsValues.jsFrontSensor
+      sensor lateral esquerdo: loopSensorsValues.leftVl53l0xSensorValue
+      sensor lateral direito: loopSensorsValues.rightVl53l0xSensorValue
+    2) Se o sensor frontal detectar o inimigo -> Segue em direção reta no movimento "woodpecker". Onde o robo é acelerado por pouco tempo e depois parado, continuamente e super devagar.
+    3) Se o sensor lateral esquerdo detectar o inimigo -> girar pro lado esquerdo até o sensor frontal detectar o inimigo. 
+    4) Se o sensor lateral direito detectar o inimigo -> girar pro lado direito até o sensor frontal detectar o inimigo. 
+
+*/
 
 }
 
@@ -54,7 +86,17 @@ Assim que o encontra, acelera com tudo em direção a ele.
 Caso perca de vista, volta a girar.
 */
 void tornado(){
-  // TODO
+// TODO
+/*  Pseudocódigo:
+    1) ativa o giro (spin) do robo com: 
+    2) busca o inimigo olhando os 3 sensores de distancia:
+      sensor frontal: loopSensorsValues.jsFrontSensor
+      sensor lateral esquerdo: loopSensorsValues.leftVl53l0xSensorValue
+      sensor lateral direito: loopSensorsValues.rightVl53l0xSensorValue
+    3) Se o sensor frontal detectar o inimigo -> andar reto
+    4) Se o sensor lateral esquerdo detectar o inimigo -> girar pro lado esquerdo até o sensor frontal detectar o inimigo. 
+    5) Se o sensor lateral direito detectar o inimigo -> girar pro lado direito até o sensor frontal detectar o inimigo. 
+*/
 
 }
 
@@ -65,7 +107,10 @@ ir para frente com 100% pwm por um tempo (50ms por exemplo).
 Depois entender quanto tempo demora para fazer uma girada rápida.
 */
 void zigzag(){
-  // TODO
+// TODO
+/* Pseudocódigo:
+
+*/
 
 }
 
@@ -157,6 +202,15 @@ switch(strategy) {
   case 0b101:
     zigzag();
     reverseAndSpinWhenInEdge(randomSearch);
+    break;
+  case 0b110:
+    reverseAndSpinWhenInEdge(randomSearch);
+    break;
+  case 0b111:
+    reverseAndSpinWhenInEdge(tornado);
+    break;
+  case 0b1000:
+    reverseAndSpinWhenInEdge(woodpecker);
     break;
   default:
     break;
