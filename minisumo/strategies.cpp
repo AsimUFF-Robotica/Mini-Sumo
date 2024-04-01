@@ -223,9 +223,12 @@ void runnigStrategy(unsigned char strategy) {
       reverseAndSpinWhenInEdge(tornado);
       break;
     case 0b1000:
-      reverseAndSpinWhenInEdge(woodpecker);
+      reverseAndSpinWhenInEdge(fastWoodpecker);
       break;
     case 0b1001:
+      reverseAndSpinWhenInEdge(slowWoodpecker);
+      break;
+    case 0b1010:
       // esse é bom
       whiteLineRetreat();
       reverseAndSpinWhenInEdge(stationarySearch);

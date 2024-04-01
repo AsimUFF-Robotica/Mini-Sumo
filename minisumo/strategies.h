@@ -1,8 +1,11 @@
 #ifndef Strategies_h
 #define Strategies_h
 
+void passiveManeuver();
 void whiteLineRetreat();
-void woodpecker();
+void stationarySearch();
+void fastWoodpecker();
+void slowWoodpecker();
 void tornado();
 void zigzag();
 void direct();
