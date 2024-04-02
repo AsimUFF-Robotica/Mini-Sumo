@@ -51,8 +51,8 @@ void startVl53l0x(){
   rightVl53l0xSensor.startContinuous(VL53L0X_START_CONTINUOUS_PERIOD_MS);
 
   // TODO: testar esse codigo abaixo que usa o GPIO para detectar oponentes a menos e 78cm.
-  // setupInterruptForLessThan78cm();
-  // setupInterruptForLessThan78cm();
+  // setupInterruptForLessThan78cm(leftVl53l0xSensor);
+  // setupInterruptForLessThan78cm(rightVl53l0xSensor);
 }
 
 void startMicroStart(){
@@ -84,7 +84,7 @@ void startAllSensors(){
   startDIPSwitch();
 }
 
-void setupInterruptForLessThan78cm(VL53L0X sensor) {
+void setupInterruptForLessThan78cm(VL53L0X& sensor) {
   // Constants for setting up the interrupt
   const uint16_t threshold = 780; // 78cm threshold in mm
 
@@ -98,8 +98,7 @@ void setupInterruptForLessThan78cm(VL53L0X sensor) {
   // Clear the interrupt before we start to avoid any stale data
   sensor.writeReg(VL53L0X::SYSTEM_INTERRUPT_CLEAR, 0x01);
 
-  // When the pin goes low, it means the distance has fallen below
-  // 30cm.
+  // When the pin goes low, it means the distance has fallen below 78cm.
 
   /* TODO: testar se o codigo abaixo funciona. Ele não bloqueia o loop ja que só olha pro GPIO e não manda msg i2c.
   values.leftVl53l0xSensorValue = !digitalRead(VL53L0X_GPIO_PIN_LEFT);
