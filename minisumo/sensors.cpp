@@ -26,6 +26,7 @@ void startVl53l0x(){
 
   delay(500);
   Wire.begin();
+  Wire.setClock(400000); // Set I2C to 400kHz
 
   digitalWrite(VL53L0X_XSHUT_LEFT, HIGH);
   delay(150);
@@ -41,8 +42,17 @@ void startVl53l0x(){
   delay(100);
   rightVl53l0xSensor.setAddress((uint8_t)02);
 
-  leftVl53l0xSensor.startContinuous();
-  rightVl53l0xSensor.startContinuous();
+  // 50 ->  50ms is how often the sensor takes a measurement (too
+  //        small can increase blocking operations and inaccurate
+  //        measurements, too big can increase accurate but decrease the reaction time)
+  //        measurements takes 33ms but can reduce to 20ms with sensor.setMeasurementTimingBudget(20000);
+  // 0 -> take readings as fast as possible but more blocking operations
+  leftVl53l0xSensor.startContinuous(VL53L0X_START_CONTINUOUS_PERIOD_MS);
+  rightVl53l0xSensor.startContinuous(VL53L0X_START_CONTINUOUS_PERIOD_MS);
+
+  // TODO: testar esse codigo abaixo que usa o GPIO para detectar oponentes a menos e 78cm.
+  // setupInterruptForLessThan78cm();
+  // setupInterruptForLessThan78cm();
 }
 
 void startMicroStart(){
@@ -74,6 +84,29 @@ void startAllSensors(){
   startDIPSwitch();
 }
 
+void setupInterruptForLessThan78cm(VL53L0X sensor) {
+  // Constants for setting up the interrupt
+  const uint16_t threshold = 780; // 78cm threshold in mm
+
+  // Configure GPIO interrupt settings
+  // SYSTEM_INTERRUPT_CONFIG_GPIO register (0x0A) setting for level low interrupt
+  sensor.writeReg(VL53L0X::SYSTEM_INTERRUPT_CONFIG_GPIO, 0x01);
+  
+  // Set the high threshold for the interrupt
+  sensor.writeReg16Bit(VL53L0X::SYSTEM_THRESH_HIGH, threshold);
+
+  // Clear the interrupt before we start to avoid any stale data
+  sensor.writeReg(VL53L0X::SYSTEM_INTERRUPT_CLEAR, 0x01);
+
+  // When the pin goes low, it means the distance has fallen below
+  // 30cm.
+
+  /* TODO: testar se o codigo abaixo funciona. Ele não bloqueia o loop ja que só olha pro GPIO e não manda msg i2c.
+  values.leftVl53l0xSensorValue = !digitalRead(VL53L0X_GPIO_PIN_LEFT);
+  values.rightVl53l0xSensorValue = !digitalRead(VL53L0X_GPIO_PIN_RIGHT);
+  */
+}
+
 // Essa função pode ser otimizada recebendo os dados dos pinos de uma vez só (via PORTB, PORTC, etc)
 SensorValues getLoopSensorsValues(){
   SensorValues values;
@@ -85,8 +118,21 @@ SensorValues getLoopSensorsValues(){
   values.jsFrontSensor = digitalRead(JS_FRONT_SENSOR);
   
   // 2 x VL53L0X
-  values.leftVl53l0xSensorValue = leftVl53l0xSensor.readRangeContinuousMillimeters();
-  values.rightVl53l0xSensorValue = rightVl53l0xSensor.readRangeContinuousMillimeters();
+  /* TODO: codigo antigo, provavelmente o mais lento.
+   values.leftVl53l0xSensorValue = leftVl53l0xSensor.readRangeContinuousMillimeters();
+   values.rightVl53l0xSensorValue = rightVl53l0xSensor.readRangeContinuousMillimeters();
+  */
+  // codigo novo, usando GPIO para mandar msg i2c sem bloquear o loop por muito tempo.
+  if(digitalRead(VL53L0X_GPIO_PIN_LEFT)==LOW)
+    {
+      values.leftVl53l0xSensorValue = leftVl53l0xSensor.readReg16Bit(leftVl53l0xSensor.RESULT_RANGE_STATUS + 10);
+      leftVl53l0xSensor.writeReg(leftVl53l0xSensor.SYSTEM_INTERRUPT_CLEAR, 0x01);
+    }
+  if(digitalRead(VL53L0X_GPIO_PIN_RIGHT)==LOW)
+    {
+      values.rightVl53l0xSensorValue = rightVl53l0xSensor.readReg16Bit(rightVl53l0xSensor.RESULT_RANGE_STATUS + 10);
+      rightVl53l0xSensor.writeReg(rightVl53l0xSensor.SYSTEM_INTERRUPT_CLEAR, 0x01);
+    }
 
   // 3 x QRE1113
   values.rightLineSensor = analogRead(RIGHT_LINE_SENSOR);
