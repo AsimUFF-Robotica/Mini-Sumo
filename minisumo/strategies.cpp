@@ -72,7 +72,7 @@ void fastWoodpecker() {
   sensor frontal: loopSensorsValues.jsFrontSensor
   sensor lateral esquerdo: loopSensorsValues.leftVl53l0xSensorValue
   sensor lateral direito: loopSensorsValues.rightVl53l0xSensorValue
-2) Caso encontre o oponente, freia o robo.
+2) Caso encontre o oponente, freia o robo (com stop(1)).
   Se foi o sensor frontal que detectou o inimigo -> Segue em direção reta no movimento "woodpecker". Onde o robo é acelerado por pouco tempo e depois parado, continuamente e super devagar.
   Se foi o sensor lateral esquerdo que detectou o inimigo -> girar pro lado esquerdo até o sensor frontal detectar o inimigo. E segue em direção reta no movimento "woodpecker".
   Se foi o sensor lateral direito que detectou o inimigo -> girar pro lado direito até o sensor frontal detectar o inimigo. E segue em direção reta no movimento "woodpecker".

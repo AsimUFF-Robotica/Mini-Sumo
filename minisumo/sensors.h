@@ -15,6 +15,8 @@ struct SensorValues {
   int backLineSensor;
 };
 
+// Global
 extern SensorValues loopSensorsValues;
+
 SensorValues getLoopSensorsValues();
 #endif

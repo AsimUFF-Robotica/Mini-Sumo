@@ -16,7 +16,7 @@ Componentes:
 #include "sensors.h"
 #include "strategies.h"
 
-unsigned char strategy;
+static unsigned char strategy;
 SensorValues loopSensorsValues;
 
 void setup() {
