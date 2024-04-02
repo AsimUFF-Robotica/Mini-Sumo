@@ -35,6 +35,6 @@
 
 // Strategies
 #define SPIN_180_DURATION_MS_WITH_MAXPW 1000
-#define DIRECT_SPIN_DURATION_MS 2000
+#define OPPONENT_FOUND_DISTANCE_VL53L0X 30 // definir aqui a distance que o vl53l0x considera que achou o oponente.
 
 #endif
