@@ -30,4 +30,8 @@
 // Micro Start
 #define MICRO_START_PIN 13
 
+
+#define TEMPO_DE_EXEC_QRE 5
+#define TEMPO_DE_EXEC_JS 5
+
 #endif
