@@ -3,6 +3,7 @@
 
 unsigned char getDIPSwitchValues();
 void startAllSensors();
+void startVl53l0x();
 unsigned char isRobotInEdge(int leftLineSensor, int rightLineSensor, int backLineSensor);
 
 struct SensorValues {

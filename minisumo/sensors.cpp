@@ -2,6 +2,7 @@
 #include "sensors.h"
 #include "VL53L0X.h"
 #include "constants.h"
+#include <Wire.h>
 
 VL53L0X leftVl53l0xSensor;
 VL53L0X rightVl53l0xSensor;
@@ -19,8 +20,8 @@ unsigned char getDIPSwitchValues() {
 }
 
 void startVl53l0x(){
-  pinMode(VL53L0X_SDA, OUTPUT);
-  pinMode(VL53L0X_SCL, OUTPUT);
+  // pinMode(VL53L0X_SDA, OUTPUT);
+  // pinMode(VL53L0X_SCL, OUTPUT);
   pinMode(VL53L0X_XSHUT_LEFT, OUTPUT);
   pinMode(VL53L0X_XSHUT_RIGHT, OUTPUT);
 
@@ -112,10 +113,10 @@ SensorValues getLoopSensorsValues(){
 
   // Micro Start
   values.microStartPin = digitalRead(MICRO_START_PIN);
-  
+
   // js (sensor de distancia frontal que retorna 1 caso encontre algo a menos de 40cm)
   values.jsFrontSensor = digitalRead(JS_FRONT_SENSOR);
-  
+
   // 2 x VL53L0X
   /* TODO: codigo antigo, provavelmente o mais lento.
    values.leftVl53l0xSensorValue = leftVl53l0xSensor.readRangeContinuousMillimeters();
