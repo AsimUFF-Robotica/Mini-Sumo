@@ -31,6 +31,7 @@ void driverTest(){
 
 void qreSensorTest(){
 // 3 SENSORES DE LINHA QRE1113
+// jeremias
 
 
 }
@@ -41,6 +42,7 @@ void dipSwitchTest(){
 }
 
 void jsSensorTest(){
- // 5 SENSORES DE DISTANCIA (5 x JS40F)
+// 5 SENSORES DE DISTANCIA (5 x JS40F)
+// renato
 
 }
