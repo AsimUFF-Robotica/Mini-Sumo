@@ -24,7 +24,7 @@ void startQre1113(){
 }
 
 void startMicroStart(){
-  pinMode(MICRO_START_PIN 13,INPUT);
+  pinMode(MICRO_START_PIN,INPUT);
 }
 
 void setup() {
@@ -84,7 +84,7 @@ void dipSwitchTest(){
 void jsSensorTest(){
 // 5 SENSORES DE DISTANCIA (5 x JS40F)
 
-  if( (millis() - initialTime < TEMPO_DE_EXEC_QRE + TEMPO_DE_EXEC_JS) && (millis() - initialTime > TEMPO_DE_EXEC_QRE)) {
+  if( (millis() - tempoInicial < TEMPO_DE_EXEC_QRE + TEMPO_DE_EXEC_JS) && (millis() - tempoInicial > TEMPO_DE_EXEC_QRE)) {
     for(int i = 0; i < sensores_js_size; i++){
     int value = digitalRead(sensores_js[i]);
     Serial.print("Sensor "+ String(i) +"Output: "+ String(value));
