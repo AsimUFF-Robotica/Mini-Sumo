@@ -1,14 +1,11 @@
-/* 
-Componentes:
-- 2 x DRIVER (PONTE H) DRV8833
-- 2 x MOTORES N20 (MENOR) ou 2 x MOTORES MAIOR
-- 3 SENSORES DE LINHA QRE1113
-- 5 SENSORES DE DISTANCIA (5 x JS40F) 
-- MICROSTART
-- CHAVE SELETORA de 3 pinos
-- ARDUINO
-*/
 #include "constants.h"
+
+// Definindo variáveis dos sensores globalmente
+int rightLineSensor;
+int leftLineSensor;
+int backLineSensor;
+
+unsigned long tempoInicial = millis();
 
 int sensores_js[] = {JS_SENSOR_0, JS_SENSOR_1, JS_SENSOR_2, JS_SENSOR_3, JS_SENSOR_4};
 int sensores_js_size = sizeof(sensores_js)/sizeof(sensores_js[0]);
@@ -19,37 +16,69 @@ void startJs(){
   }
 }
 
-void setup() {
-  // put your setup code here, to run once:
-  startJs();
 
+void startQre1113(){
+  pinMode(LEFT_LINE_SENSOR, INPUT);
+  pinMode(RIGHT_LINE_SENSOR, INPUT);
+  pinMode(BACK_LINE_SENSOR, INPUT);
+}
+
+void startMicroStart(){
+  pinMode(MICRO_START_PIN 13,INPUT);
+}
+
+void setup() {
+  // Inicialização do Serial para comunicação
   Serial.begin(9600);
+  startQre1113();
+  startJs();
+  startMicroStart();
+  while(digitalRead(MICRO_START_PIN) == 0){
+    Serial.println("standby");
+  }
+  
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-
+  qreTest(20000);
+  microStartTest();
+  
 }
 
-void microStartTest(){
-// MICROSTART
 
+void microStartTest(){
+  // Implemente o teste para o componente MICROSTART
+  while(digitalRead(MICRO_START_PIN) == 1){
+    Serial.println("start running");
+  }
 }
 
 void driverTest(){
-// 2 x DRIVER (PONTE H) DRV8833
+  // Implemente o teste para os 2 x DRIVER (PONTE H) DRV8833
 }
 
-void qreSensorTest(){
-// 3 SENSORES DE LINHA QRE1113
-// jeremias
 
+void qreTest(int time) {
+  if (millis() - tempoInicial >= time) { 
+    qreSensorTest();
+  }
+}
 
+void qreSensorTest() {
+  // Leitura dos sensores de linha
+  rightLineSensor = analogRead(RIGHT_LINE_SENSOR);
+  leftLineSensor = analogRead(LEFT_LINE_SENSOR);
+  backLineSensor = analogRead(BACK_LINE_SENSOR);
+  
+  Serial.println("sensor de linha qre direita: " + String(rightLineSensor) + 
+  "sensor de linha qre esquerda:" + String(leftLineSensor) + 
+  "sensor de linha qre traseiro:" + String(backLineSensor));
+
+  delay(200);
 }
 
 void dipSwitchTest(){
-// CHAVE SELETORA de 3 pinos
-
+  // Implemente o teste para a CHAVE SELETORA de 3 pinos
 }
 
 void jsSensorTest(){
