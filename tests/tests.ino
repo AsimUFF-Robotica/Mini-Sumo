@@ -1,96 +1,94 @@
 #include "constants.h"
+#include "task.h"
 
-// Definindo variáveis dos sensores globalmente
-int rightLineSensor;
-int leftLineSensor;
-int backLineSensor;
+// ---------------[BEGIN] Tasks Time Handler Section
+Task tasks[] = {
+  // {time in ms, test function, aux}
+  {20000, qreSensorTest, false},
+  {20000, jsSensorTest, false},
+  {20000, dipSwitchTest, false},
+  {20000, microStartTest, false},
+  {20000, driverTest, false},
+};
 
-unsigned long tempoInicial = millis();
+int tasksSize = (int)(sizeof(tasks) / sizeof(Task));
+// ---------------[END] Tasks Time Handler Section
 
-int sensores_js[] = {JS_SENSOR_0, JS_SENSOR_1, JS_SENSOR_2, JS_SENSOR_3, JS_SENSOR_4};
-int sensores_js_size = sizeof(sensores_js)/sizeof(sensores_js[0]);
-
-void startJs(){
-    for(int i = 0; i < sensores_js_size; i++){
-    pinMode(sensores_js[i], INPUT);
-  }
+void setup() {
+  Serial.begin(9600);
+  initComponents();
 }
 
+void loop() {
+  executeSequentialTasks(tasks, tasksSize);
+}
 
-void startQre1113(){
+// ---------------[BEGIN] PinMode Section
+void initQre(){
   pinMode(LEFT_LINE_SENSOR, INPUT);
   pinMode(RIGHT_LINE_SENSOR, INPUT);
   pinMode(BACK_LINE_SENSOR, INPUT);
 }
 
-void startMicroStart(){
-  pinMode(MICRO_START_PIN,INPUT);
+void initJs(){
+  pinMode(JS_SENSOR_0, INPUT);
+  pinMode(JS_SENSOR_1, INPUT);
+  pinMode(JS_SENSOR_2, INPUT);
+  pinMode(JS_SENSOR_3, INPUT);
+  pinMode(JS_SENSOR_4, INPUT);
 }
 
-void setup() {
-  // Inicialização do Serial para comunicação
-  Serial.begin(9600);
-  startQre1113();
-  startJs();
-  startMicroStart();
-  while(digitalRead(MICRO_START_PIN) == 0){
-    Serial.println("standby");
-  }
-  
+void initDipSwitch(){
+  pinMode(SWITCH_ONE, INPUT_PULLUP);
+  pinMode(SWITCH_TWO, INPUT_PULLUP);
+  pinMode(SWITCH_THREE, INPUT_PULLUP);
+  pinMode(SWITCH_FOUR, INPUT_PULLUP);
 }
 
-void loop() {
-  qreTest(20000);
-  microStartTest();
-  
+void initMicroStart(){
+  pinMode(MICRO_START_PIN, INPUT);
 }
 
-
-void microStartTest(){
-  // Implemente o teste para o componente MICROSTART
-  while(digitalRead(MICRO_START_PIN) == 1){
-    Serial.println("start running");
-  }
+void initDriver(){
+  //TODO
 }
 
-void driverTest(){
-  // Implemente o teste para os 2 x DRIVER (PONTE H) DRV8833
+void initComponents(){
+  initQre();
+  initJs();
+  initDipSwitch();
+  initMicroStart();
+  initDriver();
 }
+// ---------------[END] PinMode Section
 
-
-void qreTest(int time) {
-  if (millis() - tempoInicial >= time) { 
-    qreSensorTest();
-  }
-}
-
+// ---------------[BEGIN] Tests Section
 void qreSensorTest() {
-  // Leitura dos sensores de linha
-  rightLineSensor = analogRead(RIGHT_LINE_SENSOR);
-  leftLineSensor = analogRead(LEFT_LINE_SENSOR);
-  backLineSensor = analogRead(BACK_LINE_SENSOR);
-  
-  Serial.println("sensor de linha qre direita: " + String(rightLineSensor) + 
-  "sensor de linha qre esquerda:" + String(leftLineSensor) + 
-  "sensor de linha qre traseiro:" + String(backLineSensor));
-
-  delay(200);
-}
-
-void dipSwitchTest(){
-  // Implemente o teste para a CHAVE SELETORA de 3 pinos
+  Serial.println("RIGHT_LINE_SENSOR: " + String(analogRead(RIGHT_LINE_SENSOR)) + 
+  "\tLEFT_LINE_SENSOR:" + String(analogRead(LEFT_LINE_SENSOR)) + 
+  "\tBACK_LINE_SENSOR:" + String(analogRead(BACK_LINE_SENSOR)));
 }
 
 void jsSensorTest(){
-// 5 SENSORES DE DISTANCIA (5 x JS40F)
-
-  if( (millis() - tempoInicial < TEMPO_DE_EXEC_QRE + TEMPO_DE_EXEC_JS) && (millis() - tempoInicial > TEMPO_DE_EXEC_QRE)) {
-    for(int i = 0; i < sensores_js_size; i++){
-    int value = digitalRead(sensores_js[i]);
-    Serial.print("Sensor "+ String(i) +"Output: "+ String(value));
-  }
-  Serial.println("");
-  
-  delay(500);
-  }  
+  Serial.println("JS_SENSOR_0 Pin: "+ String(JS_SENSOR_0) +"\tOutput: "+ String(digitalRead(JS_SENSOR_0)) + 
+  "\tJS_SENSOR_1 Pin: "+ String(JS_SENSOR_1) +"\tOutput: "+ String(digitalRead(JS_SENSOR_1)) + 
+  "\tJS_SENSOR_2 Pin: "+ String(JS_SENSOR_2) +"\tOutput: "+ String(digitalRead(JS_SENSOR_2)) + 
+  "\tJS_SENSOR_3 Pin: "+ String(JS_SENSOR_3) +"\tOutput: "+ String(digitalRead(JS_SENSOR_3)) + 
+  "\tJS_SENSOR_4 Pin: "+ String(JS_SENSOR_4) +"\tOutput: "+ String(digitalRead(JS_SENSOR_4)));
 }
+
+void dipSwitchTest(){
+  Serial.println("SWITCH_ONE Pin: "+ String(SWITCH_ONE) +"\tOutput: "+ String(digitalRead(SWITCH_ONE)) + 
+  "\tSWITCH_TWO Pin: "+ String(SWITCH_TWO) +"\tOutput: "+ String(digitalRead(SWITCH_TWO)) + 
+  "\tSWITCH_THREE Pin: "+ String(SWITCH_THREE) +"\tOutput: "+ String(digitalRead(SWITCH_THREE)) + 
+  "\tSWITCH_FOUR Pin: "+ String(SWITCH_FOUR) +"\tOutput: "+ String(digitalRead(SWITCH_FOUR)));
+}
+
+void microStartTest(){
+    Serial.println("MICRO_START_PIN Pin: " + String(MICRO_START_PIN) + "\tOutput: " + String(digitalRead(MICRO_START_PIN)));
+}
+
+void driverTest(){
+  //TODO
+}
+// ---------------[END] Tests Section
