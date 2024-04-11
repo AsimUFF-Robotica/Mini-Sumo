@@ -3,14 +3,15 @@
 
 unsigned char getDIPSwitchValues();
 void startAllSensors();
-void startVl53l0x();
 unsigned char isRobotInEdge(int leftLineSensor, int rightLineSensor, int backLineSensor);
 
 struct SensorValues {
   uint8_t microStartPin;
   uint8_t jsFrontSensor;
-  uint16_t leftVl53l0xSensorValue;
-  uint16_t rightVl53l0xSensorValue;
+  uint8_t jsFrontLeftSensor;
+  uint8_t jsFrontRightSensor;
+  uint8_t jsSideLeftSensor;
+  uint8_t jsSideRightSensor;
   int rightLineSensor;
   int leftLineSensor;
   int backLineSensor;

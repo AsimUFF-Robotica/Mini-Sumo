@@ -68,10 +68,12 @@ A vantagem é que com a baixa velocidade, a lâmina não se eleva com a alta vel
 void fastWoodpecker() {
 // TODO
 /*  Pseudocódigo:
-1) Busca o inimigo olhando os 3 sensores de distancia:
-  sensor frontal: loopSensorsValues.jsFrontSensor
-  sensor lateral esquerdo: loopSensorsValues.leftVl53l0xSensorValue
-  sensor lateral direito: loopSensorsValues.rightVl53l0xSensorValue
+1) Busca o inimigo olhando os 5 sensores de distancia:
+  loopSensorsValues.jsFrontSensor
+  loopSensorsValues.jsFrontLeftSensor
+  loopSensorsValues.jsFrontRightSensor
+  loopSensorsValues.jsSideLeftSensor
+  loopSensorsValues.jsSideRightSensor
 2) Caso encontre o oponente, freia o robo (com stop(1)).
   Se foi o sensor frontal que detectou o inimigo -> Segue em direção reta no movimento "woodpecker". Onde o robo é acelerado por pouco tempo e depois parado, continuamente e super devagar.
   Se foi o sensor lateral esquerdo que detectou o inimigo -> girar pro lado esquerdo até o sensor frontal detectar o inimigo. E segue em direção reta no movimento "woodpecker".
@@ -87,10 +89,12 @@ A vantagem é que com a baixa velocidade, a lâmina não se eleva com a alta vel
 void slowWoodpecker() {
 // TODO
 /*  Pseudocódigo:
-1) Busca o inimigo olhando os 3 sensores de distancia:
-  sensor frontal: loopSensorsValues.jsFrontSensor
-  sensor lateral esquerdo: loopSensorsValues.leftVl53l0xSensorValue
-  sensor lateral direito: loopSensorsValues.rightVl53l0xSensorValue
+1) Busca o inimigo olhando os 5 sensores de distancia:
+  loopSensorsValues.jsFrontSensor
+  loopSensorsValues.jsFrontLeftSensor
+  loopSensorsValues.jsFrontRightSensor
+  loopSensorsValues.jsSideLeftSensor
+  loopSensorsValues.jsSideRightSensor
 2) Se o sensor frontal detectar o inimigo -> Segue em direção reta no movimento "woodpecker". Onde o robo é acelerado por pouco tempo e depois parado, continuamente e super devagar.
 3) Se o sensor lateral esquerdo detectar o inimigo -> girar pro lado esquerdo até o sensor frontal detectar o inimigo. 
 4) Se o sensor lateral direito detectar o inimigo -> girar pro lado direito até o sensor frontal detectar o inimigo.
@@ -105,10 +109,12 @@ Caso perca de vista, volta a girar.
 void tornado() {
 // TODO
 /*  Pseudocódigo:
-1) busca o inimigo olhando os 3 sensores de distancia:
-  sensor frontal: loopSensorsValues.jsFrontSensor
-  sensor lateral esquerdo: loopSensorsValues.leftVl53l0xSensorValue
-  sensor lateral direito: loopSensorsValues.rightVl53l0xSensorValue
+1) busca o inimigo olhando os 5 sensores de distancia:
+  loopSensorsValues.jsFrontSensor
+  loopSensorsValues.jsFrontLeftSensor
+  loopSensorsValues.jsFrontRightSensor
+  loopSensorsValues.jsSideLeftSensor
+  loopSensorsValues.jsSideRightSensor
 2) ativa o giro do robo com: função spin()
 3) Se o sensor frontal detectar o inimigo -> andar reto. Use a função move()
 4) Se o sensor lateral esquerdo detectar o inimigo -> girar pro lado esquerdo até o sensor frontal detectar o inimigo. 
@@ -136,7 +142,8 @@ void zigzag() {
 Segue reto na velocidade maxima, enquanto verifica sensores. Caso ache o inimigo, se direciona a ele e avança.
 */
 void straightLockSearch() {
-  static bool isSpinningLeft = false;
+  // TODO: Adaptar ao novos 5 sensores js
+  /*static bool isSpinningLeft = false;
   static bool isSpinningRight = false;
 
   if (isSpinningRight){
@@ -161,14 +168,15 @@ void straightLockSearch() {
     else{
       move(0, MAX_PWM);
     }
-  }
+  }*/
 }
 
 /* OFFENSIVE_MID_STRATEGY
 Anda fazendo curva na velocidade maxima, enquanto verifica sensores. Caso ache o inimigo, se direciona a ele e avança.
 */
 void curvedLockSearch() {
-  static bool isSpinningLeft = false;
+  // TODO: Adaptar ao novos 5 sensores js
+  /*static bool isSpinningLeft = false;
   static bool isSpinningRight = false;
 
   if (isSpinningRight){
@@ -196,7 +204,7 @@ void curvedLockSearch() {
     else{
       move(0.25, MAX_PWM);
     }
-  }
+  }*/
 }
 
 /* OFFENSIVE_MID_STRATEGY
@@ -278,7 +286,7 @@ reverseAndSpinWhenInEdge
 void runnigStrategy(unsigned char strategy) {
   switch (strategy) {
     case 0b1:
-      // TODO
+      // TODO: Switch só terá 3 pinos disponiveis p/ estrategias. Separar somente as 8 melhores e remover cases maiores que 0b111
       break;
     case 0b10:
       zigzag();
