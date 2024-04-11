@@ -1,16 +1,4 @@
-/* A estrutura desse projeto foi baseada em:
-https://github.com/MinervaBots/ZePequeno
-
-Componentes:
-- 2 x DRIVER (PONTE H) DRV8833
-- 2 x MOTORES N20 (MENOR) ou 2 x MOTORES MAIOR
-- 3 SENSORES DE LINHA QRE1113
-- 3 SENSORES DE DISTANCIA(2 x VL53L0X e 1 x JS40F) 
-- MICROSTART
-- CHAVE SELETORA
-- ARDUINO
-*/
-
+// TODO: Falta atualizar o codigo pois passamos a usar 5 x JS40F em vez dos 3 x VL53L0X.
 #include "motors.h"
 #include "constants.h"
 #include "sensors.h"

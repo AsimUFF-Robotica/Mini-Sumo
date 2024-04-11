@@ -9,7 +9,6 @@
 #define MAX_PWM 255
 
 // DIP Switch
-// TODO: Encontrar pinos livres para o DIP Switch
 #define SWITCH_ONE 1
 #define SWITCH_TWO 2
 #define SWITCH_THREE 3
@@ -30,8 +29,11 @@
 // Micro Start
 #define MICRO_START_PIN 13
 
-
-#define TEMPO_DE_EXEC_QRE 5
-#define TEMPO_DE_EXEC_JS 5
+// functions to task
+void qreSensorTest();
+void jsSensorTest();
+void dipSwitchTest();
+void microStartTest();
+void driverTest();
 
 #endif
