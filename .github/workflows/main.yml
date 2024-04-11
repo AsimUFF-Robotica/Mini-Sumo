@@ -1,0 +1,17 @@
+name: Arduino Test Compile Action for Arduino Micro
+on: [push, pull_request]
+
+jobs:
+  test-compile:
+    name: Test compiling Arduino sketches for Micro
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Update Checkout Action
+      uses: actions/checkout@v3
+
+    - name: Compile Arduino Sketches for Micro
+      uses: ArminJo/arduino-test-compile@v3
+      with:
+        arduino-board-fqbn: 'arduino:avr:micro'
+        sketch-names: 'tests/tests.ino,minisumo/minisumo.ino'
