@@ -1,4 +1,3 @@
-// TODO: Falta atualizar o codigo pois passamos a usar 5 x JS40F em vez dos 3 x VL53L0X.
 #include "motors.h"
 #include "constants.h"
 #include "sensors.h"
