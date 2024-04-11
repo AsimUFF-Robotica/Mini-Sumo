@@ -13,5 +13,5 @@ jobs:
     - name: Compile Arduino Sketches for Micro
       uses: ArminJo/arduino-test-compile@v3
       with:
-        arduino-board-fqbn: 'arduino:avr:micro'
-        sketch-names: 'tests/tests.ino,minisumo/minisumo.ino'
+        arduino-board-fqbn: arduino:avr:micro
+        sketch-names: tests.ino,minisumo.ino
