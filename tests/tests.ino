@@ -1,5 +1,6 @@
 #include "constants.h"
 #include "task.h"
+#include "driver.h"
 
 // ---------------[BEGIN] Tasks Time Handler Section
 Task tasks[] = {
@@ -8,7 +9,15 @@ Task tasks[] = {
   {20000, jsSensorTest, false},
   {20000, dipSwitchTest, false},
   {20000, microStartTest, false},
-  {20000, driverTest, false},
+  // Driver tests:
+  {10000, Driver::forward, false}, // Move forward for 10 seconds
+  {10000, Driver::coast, false}, // Coast stop for 10 seconds
+  {10000, Driver::forward, false}, // Move forward for 10 seconds
+  {10000, Driver::brake, false}, // Brake stop for 10 seconds
+  {10000, Driver::backward, false}, // Move backward for 10 seconds
+  {10000, Driver::brake, false}, // Brake stop for 10 seconds
+  {10000, Driver::spinToLeft, false}, // Spin to the left for 10 seconds
+  {10000, Driver::spinToRight, false} // Spin to the right for 10 seconds
 };
 
 int tasksSize = (int)(sizeof(tasks) / sizeof(Task));
@@ -49,16 +58,12 @@ void initMicroStart(){
   pinMode(MICRO_START_PIN, INPUT);
 }
 
-void initDriver(){
-  //TODO
-}
-
 void initComponents(){
   initQre();
   initJs();
   initDipSwitch();
   initMicroStart();
-  initDriver();
+  Driver::initDriver();
 }
 // ---------------[END] PinMode Section
 
@@ -86,9 +91,5 @@ void dipSwitchTest(){
 
 void microStartTest(){
     Serial.println("MICRO_START_PIN Pin: " + String(MICRO_START_PIN) + "\tOutput: " + String(digitalRead(MICRO_START_PIN)));
-}
-
-void driverTest(){
-  //TODO
 }
 // ---------------[END] Tests Section
