@@ -1,5 +1,6 @@
 #include "driver.h"
 #include "Arduino.h"
+#include "constants.h"
 
 void Driver::initDriver() {
     pinMode(RIGHT_WHEEL_IN_1, OUTPUT);
