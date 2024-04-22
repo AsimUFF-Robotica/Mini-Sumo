@@ -22,7 +22,7 @@ void Driver::backward() {
     analogWrite(LEFT_WHEEL_IN_2, 255);
     digitalWrite(RIGHT_WHEEL_IN_1, LOW);
     analogWrite(RIGHT_WHEEL_IN_2, 255);
-    Serial.println("Driver test: Backwarding.")
+    Serial.println("Driver test: Backwarding.");
 }
 
 void Driver::spinToLeft() {
