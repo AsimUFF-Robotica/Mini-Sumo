@@ -6,7 +6,7 @@ The AsimUFF Mini-Sumo Robot's source code and documentation, developed at UFF, a
 ## Components
 
 - 2 x DRV8833 H-Bridge Motor Drivers (one for each motor)
-- 2 x N20 Micro Motors (Alternative option for larger motors available)
+- 2 x N20 Micro Motors
 - 3 x QRE1113 Line Sensors
 - 5 x JS40F Distance Sensors
 - Microstart
