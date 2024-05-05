@@ -26,5 +26,6 @@ void loop() {
   }
   else{
     stop(0);
+    loopSensorsValues = getLoopSensorsValues();
   }
 }
