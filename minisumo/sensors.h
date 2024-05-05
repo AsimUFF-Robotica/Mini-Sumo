@@ -10,7 +10,7 @@ void ledOff();
 void waitForStartSignal();
 
 struct SensorValues {
-  uint8_t microStartPin = LOW;
+  uint8_t microStartPin;
   uint8_t jsFrontSensor;
   uint8_t jsFrontLeftSensor;
   uint8_t jsFrontRightSensor;
