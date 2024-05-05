@@ -16,10 +16,8 @@ unsigned char getDIPSwitchValues() {
 }
 
 
-// TODO: Otimizar essa função recebendo os dados dos pinos de uma vez só (via PORTB, PORTC, etc)
-SensorValues getLoopSensorsValues(){
-  SensorValues values;
-
+/* Não otimizada, leitura dos sensores é feita com digitalRead()
+void getLoopSensorsValues(SensorValues& values) {
   // Micro Start
   values.microStartPin = digitalRead(MICRO_START_PIN);
 
@@ -34,8 +32,27 @@ SensorValues getLoopSensorsValues(){
   values.rightLineSensor = analogRead(RIGHT_LINE_SENSOR);
   values.leftLineSensor = analogRead(LEFT_LINE_SENSOR);
   values.backLineSensor = analogRead(BACK_LINE_SENSOR);
+}
+*/
 
-  return values;
+
+// Otimizada para ler sensores direto nos registradores de porta (PORTB, PORTF, etc)
+// https://docs.arduino.cc/resources/pinouts/A000053-full-pinout.pdf
+void getLoopSensorsValues(SensorValues& values) {
+  // Micro Start (analog pin A3, PF4)
+  values.microStartPin = (PINF & _BV(4)) >> 4;
+
+  // JS sensors (digital I/O pins)
+  values.jsFrontSensor = PIND & _BV(0);      // digital pin 3, PD0
+  values.jsFrontLeftSensor = (PIND & _BV(4)) >> 4;  // digital pin 4, PD4
+  values.jsFrontRightSensor = (PINE & _BV(6)) >> 6; // digital pin 7, PE6
+  values.jsSideLeftSensor = (PINB & _BV(4)) >> 4;   // digital pin 8, PB4
+  values.jsSideRightSensor = (PINB & _BV(7)) >> 7;  // digital pin 11, PB7
+
+  // 3 x QRE1113
+  values.rightLineSensor = analogRead(RIGHT_LINE_SENSOR);
+  values.leftLineSensor = analogRead(LEFT_LINE_SENSOR);
+  values.backLineSensor = analogRead(BACK_LINE_SENSOR);
 }
 
 

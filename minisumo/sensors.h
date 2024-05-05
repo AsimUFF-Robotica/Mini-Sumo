@@ -9,6 +9,7 @@ void ledOn();
 void ledOff();
 void waitForStartSignal();
 
+
 struct SensorValues {
   uint8_t microStartPin;
   uint8_t jsFrontSensor;
@@ -24,5 +25,6 @@ struct SensorValues {
 // Global
 extern SensorValues loopSensorsValues;
 
-SensorValues getLoopSensorsValues();
+void getLoopSensorsValues(SensorValues& values);
+
 #endif

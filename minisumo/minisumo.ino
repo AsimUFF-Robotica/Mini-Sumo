@@ -21,11 +21,11 @@ void setup() {
 
 void loop() {
   if (loopSensorsValues.microStartPin){
-    loopSensorsValues = getLoopSensorsValues();
+    getLoopSensorsValues(loopSensorsValues);
     runnigStrategy(strategy);
   }
   else{
     stop(0);
-    loopSensorsValues = getLoopSensorsValues();
+    getLoopSensorsValues(loopSensorsValues);
   }
 }
