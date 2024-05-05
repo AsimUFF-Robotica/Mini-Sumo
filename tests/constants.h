@@ -34,6 +34,5 @@ void qreSensorTest();
 void jsSensorTest();
 void dipSwitchTest();
 void microStartTest();
-void driverTest();
 
 #endif
