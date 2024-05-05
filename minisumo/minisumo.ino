@@ -7,20 +7,16 @@ static unsigned char strategy;
 SensorValues loopSensorsValues;
 
 void setup() {
-  // LED OFF
-  pinMode(LED_BUILTIN, OUTPUT);
-  digitalWrite(LED_BUILTIN, LOW);
+  startLED();
+  ledOn();
 
   startAllSensors();
   startMotors();
+
   strategy = getDIPSwitchValues();
 
-  // LED ON
-  digitalWrite(LED_BUILTIN, HIGH);
-
-  // Codigo para o juiz iniciar
-  while (loopSensorsValues.microStartPin == 0) {
-  }
+  waitForStartSignal();
+  ledOff();
 }
 
 void loop() {

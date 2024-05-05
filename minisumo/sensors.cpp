@@ -15,6 +15,7 @@ unsigned char getDIPSwitchValues() {
   return result;
 }
 
+
 // TODO: Otimizar essa função recebendo os dados dos pinos de uma vez só (via PORTB, PORTC, etc)
 SensorValues getLoopSensorsValues(){
   SensorValues values;
@@ -37,6 +38,7 @@ SensorValues getLoopSensorsValues(){
   return values;
 }
 
+
 /* -------isRobotInEdge-------
 A partir dos 3 sensores QRE1113. Retorna:
 xx1 -> Sensor da esquerda ve linha branca
@@ -53,6 +55,7 @@ unsigned char isRobotInEdge(int leftLineSensor, int rightLineSensor, int backLin
   return result;
 }
 
+
 void startJs(){
   pinMode(JS_SENSOR_FRONT, INPUT);
   pinMode(JS_SENSOR_FRONT_LEFT, INPUT);
@@ -61,15 +64,18 @@ void startJs(){
   pinMode(JS_SENSOR_SIDE_RIGHT, INPUT);
 }
 
+
 void startMicroStart(){
   pinMode(MICRO_START_PIN, INPUT);
 }
+
 
 void startQre1113(){
   pinMode(LEFT_LINE_SENSOR, INPUT);
   pinMode(RIGHT_LINE_SENSOR, INPUT);
   pinMode(BACK_LINE_SENSOR, INPUT);
 }
+
 
 void startDIPSwitch(){
   pinMode(SWITCH_ONE, INPUT_PULLUP);
@@ -78,9 +84,30 @@ void startDIPSwitch(){
   pinMode(SWITCH_FOUR, INPUT_PULLUP);
 }
 
+
+void startLED(){
+  pinMode(LED_BUILTIN, OUTPUT);
+}
+
+
+void ledOn() {
+    digitalWrite(LED_BUILTIN, HIGH);
+}
+
+
+void ledOff() {
+    digitalWrite(LED_BUILTIN, LOW);
+}
+
+
 void startAllSensors(){
   startQre1113();
   startMicroStart();
   startJs();
   startDIPSwitch();
+}
+
+void waitForStartSignal() {
+  while (digitalRead(MICRO_START_PIN) == LOW) {
+  }
 }
