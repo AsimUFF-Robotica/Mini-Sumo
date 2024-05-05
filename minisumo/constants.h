@@ -9,8 +9,7 @@
 #define MAX_PWM 255
 
 // DIP Switch
-// Para ligar/desligar o robo:
-#define SWITCH_ONE 1 
+// Para ligar/desligar o robo -> SWITCH_ONE 1 
 // Para estrategias:
 #define SWITCH_TWO 2
 #define SWITCH_THREE 3

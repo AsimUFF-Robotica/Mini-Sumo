@@ -1,7 +1,7 @@
 #ifndef Sensors_h
 #define Sensors_h
 
-unsigned char getDIPSwitchValues();
+void getDIPSwitchValues(uint8_t *strategy);
 void startAllSensors();
 unsigned char isRobotInEdge(int leftLineSensor, int rightLineSensor, int backLineSensor);
 void startLED();

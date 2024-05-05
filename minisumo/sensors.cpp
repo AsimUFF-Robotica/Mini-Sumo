@@ -4,19 +4,16 @@
 
 /* -------getDIPSwitchValues-------
 */
-unsigned char getDIPSwitchValues() {
-  // TODO: remover leitura do SWITCH_ONE pois ele sera usado para ligar/desligar robo, e não para estrategias.
-  unsigned char result = 0;  // tem 8 bits
+void getDIPSwitchValues(uint8_t *strategy) {
+  *strategy = 0;  // tem 8 bits
   // Lê o estado de cada Switch e configura o bit correspondente
-  result |= !digitalRead(SWITCH_ONE);         // Configura o bit 0
-  result |= !digitalRead(SWITCH_TWO) << 1;    // Configura o bit 1
-  result |= !digitalRead(SWITCH_THREE) << 2;  // Configura o bit 2
-  result |= !digitalRead(SWITCH_FOUR) << 3;   // Configura o bit 3
-  return result;
+  *strategy |= !digitalRead(SWITCH_TWO) << 0;    // Configura o bit 0
+  *strategy |= !digitalRead(SWITCH_THREE) << 1;  // Configura o bit 1
+  *strategy |= !digitalRead(SWITCH_FOUR) << 2;   // Configura o bit 2
 }
 
 
-/* Não otimizada, leitura dos sensores é feita com digitalRead()
+/* Leitura dos sensores não otimizada, é feita com digitalRead()
 void getLoopSensorsValues(SensorValues& values) {
   // Micro Start
   values.microStartPin = digitalRead(MICRO_START_PIN);
@@ -95,7 +92,6 @@ void startQre1113(){
 
 
 void startDIPSwitch(){
-  pinMode(SWITCH_ONE, INPUT_PULLUP);
   pinMode(SWITCH_TWO, INPUT_PULLUP);
   pinMode(SWITCH_THREE, INPUT_PULLUP);
   pinMode(SWITCH_FOUR, INPUT_PULLUP);

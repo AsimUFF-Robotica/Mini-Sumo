@@ -3,7 +3,7 @@
 #include "sensors.h"
 #include "strategies.h"
 
-static unsigned char strategy;
+uint8_t strategy;
 SensorValues loopSensorsValues;
 
 void setup() {
@@ -13,7 +13,7 @@ void setup() {
   startAllSensors();
   startMotors();
 
-  strategy = getDIPSwitchValues();
+  getDIPSwitchValues(&strategy);
 
   waitForStartSignal();
   ledOff();
@@ -22,7 +22,7 @@ void setup() {
 void loop() {
   if (loopSensorsValues.microStartPin){
     getLoopSensorsValues(loopSensorsValues);
-    runnigStrategy(strategy);
+    runnigStrategy(&strategy);
   }
   else{
     stop(0);

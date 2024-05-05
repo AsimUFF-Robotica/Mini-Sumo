@@ -283,8 +283,8 @@ randomSearch
 SAFETY_STRATEGY:
 reverseAndSpinWhenInEdge
 */
-void runnigStrategy(unsigned char strategy) {
-  switch (strategy) {
+void runnigStrategy(uint8_t *strategy) {
+  switch (*strategy) {
     case 0b1:
       // TODO: Switch só terá 3 pinos disponiveis p/ estrategias. Separar somente as 8 melhores e remover cases maiores que 0b111
       break;
@@ -308,7 +308,7 @@ void runnigStrategy(unsigned char strategy) {
     case 0b111:
       reverseAndSpinWhenInEdge(tornado);
       break;
-    case 0b1000:
+    /*case 0b1000:
       reverseAndSpinWhenInEdge(fastWoodpecker);
       break;
     case 0b1001:
@@ -321,7 +321,7 @@ void runnigStrategy(unsigned char strategy) {
     case 0b1011:
       zigzag();
       reverseAndSpinWhenInEdge(straightLockSearch);
-      break;
+      break;*/
     default:
       break;
   }
